@@ -1,0 +1,18 @@
+// bellbird default traffic-shaping policy (v1)
+//
+// Required entrypoints:
+//   (packet_delay_ms) -> float
+//   (inject_dummy)    -> bool
+//   (pad_to_size n)   -> float/int
+
+// Base delay around 8-22ms using a light-tailed distribution.
+(defn packet_delay_ms []
+  (+ 8 (* (rand) 14)))
+
+// Inject dummies with ~12 percent probability per injector tick.
+(defn inject_dummy []
+  (< (rand) 0.12))
+
+// Pad payloads to the next 512-byte block (including 2-byte length prefix).
+(defn pad_to_size [n]
+  (* 512 (ceil (/ (+ n 2) 512.0))))

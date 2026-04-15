@@ -1,0 +1,7 @@
+FROM docker.io/library/golang:1.25-bookworm
+
+WORKDIR /workspace
+
+ENV CGO_ENABLED=0 \
+    GOCACHE=/cache/go-build \
+    GOMODCACHE=/cache/go-mod
